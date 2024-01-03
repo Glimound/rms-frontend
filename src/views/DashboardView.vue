@@ -34,6 +34,8 @@
     .main-container {
       display: flex;
       height: calc(100% - 50px);
+      position: relative;
+      z-index: 1;
 
       .content-area {
         flex-grow: 1;
