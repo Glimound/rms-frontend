@@ -1,13 +1,14 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <dash-board-view/>
 </template>
 
-<style>
+<script>
+  import DashBoardView from '@/views/DashboardView'
 
-</style>
+  export default {
+    name: 'App',
+    components: {
+      DashBoardView
+    }
+  }
+</script>

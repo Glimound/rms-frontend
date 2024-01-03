@@ -1,5 +1,7 @@
 <template>
-  
+  <div class="navigation">
+
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,9 @@
   }
 </script>
 
-<style>
-
+<style lang="scss">
+  .navigation {
+    width: 200px;
+    height: 100%;
+  }
 </style>

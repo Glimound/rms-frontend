@@ -1,5 +1,7 @@
 <template>
-  
+  <div class="toolbar">
+
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,9 @@
   }
 </script>
 
-<style>
-
+<style lang="scss">
+  .toolbar {
+    width: 100%;
+    height: 50px;
+  }
 </style>
