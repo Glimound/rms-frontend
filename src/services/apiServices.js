@@ -220,5 +220,13 @@ export const researchProjectsService = {
   },
   deleteResearchProject(id) {
     return ApiService.delete(`/research-projects/${id}`)
+  },
+  getProjectOptions(str) {
+    return ApiService.get(`/research-projects/project-options/${str}`)
+  },
+  getOwnResearcherOptions(str, projectId) {
+    return ApiService.query(`/research-projects/own-researcher-options/${str}`, {
+      projectId: projectId
+    })
   }
 }

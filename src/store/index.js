@@ -1,4 +1,4 @@
-import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService } from '@/services/apiServices'
+import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService, researchAchievementsService, researchProjectsService } from '@/services/apiServices'
 import { qualityMonitorsService, secretariesService, scientificResearchersService } from '@/services/apiServices'
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -30,6 +30,11 @@ export default new Vuex.Store({
 
     scientificResearchers: [],
     scientificResearcher: {},
+
+    researchAchievements: [],
+    researchAchievement: {},
+    projectOptions: [],
+    ownResearcherOptions: []
   },
   getters: {
   },
@@ -91,6 +96,19 @@ export default new Vuex.Store({
     setScientificResearcher(state, scientificResearcher) {
       state.scientificResearcher = scientificResearcher
     },
+
+    setResearchAchievements(state, researchAchievements) {
+      state.researchAchievements = researchAchievements
+    },
+    setResearchAchievement(state, researchAchievement) {
+      state.researchAchievement = researchAchievement
+    },
+    setProjectOptions(state, projectOptions) {
+      state.projectOptions = projectOptions
+    },
+    setOwnResearcherOptions(state, ownResearcherOptions) {
+      state.ownResearcherOptions = ownResearcherOptions
+    }
   },
   actions: {
     getAllOfficeSpaces(context, obj) {
@@ -216,6 +234,40 @@ export default new Vuex.Store({
         })
       })
     },
+
+    getAllResearchAchievements(context, obj) {
+      return new Promise((resolve) => {
+        researchAchievementsService.getAllResearchAchievements(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setResearchAchievements', data.data.researchAchievementList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getResearchAchievement(context, id) {
+      return new Promise((resolve) => {
+        researchAchievementsService.getResearchAchievement(id).then(({data}) => {
+          context.commit('setResearchAchievement', data.data)
+          resolve()
+        })
+      })
+    },
+    getProjectOptions(context, str) {
+      return new Promise((resolve) => {
+        researchProjectsService.getProjectOptions(str).then(({data}) => {
+          context.commit('setProjectOptions', data)
+          resolve()
+        })
+      })
+    },
+    getOwnResearcherOptions(context, obj) {
+      return new Promise((resolve) => {
+        researchProjectsService.getOwnResearcherOptions(obj.str, obj.projectId).then(({data}) => {
+          context.commit('setOwnResearcherOptions', data)
+          resolve()
+        })
+      })
+    }
   },
   modules: {
   }
