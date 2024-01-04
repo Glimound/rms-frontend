@@ -46,6 +46,9 @@ export const secretariesService = {
   },
   deleteSecretary(id) {
     return ApiService.delete(`/secretaries/${id}`)
+  },
+  getSecretaryOptions(str) {
+    return ApiService.get(`/secretaries/secretary-options/${str}`)
   }
 }
 
@@ -94,6 +97,9 @@ export const officeSpacesService = {
   },
   deleteOfficeSpace(id) {
     return ApiService.delete(`/office-spaces/${id}`)
+  },
+  getOfficeSpaceOptions(str) {
+    return ApiService.get(`/office-spaces/office-space-options/${str}`)
   }
 }
 
@@ -115,6 +121,14 @@ export const scientificResearchersService = {
   },
   deleteScientificResearcher(id) {
     return ApiService.delete(`/scientific-researchers/${id}`)
+  },
+  getFreeResearcherOptions(str) {
+    return ApiService.get(`/scientific-researchers/free-researcher-options/${str}`)
+  },
+  getLabOwnResearcherOptions(str, labName) {
+    return ApiService.query(`/scientific-researchers/lab-own-researcher-options/${str}`, {
+      labName: labName
+    })
   }
 }
 

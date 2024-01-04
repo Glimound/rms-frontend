@@ -15,11 +15,11 @@
       </el-menu-item>
       <el-menu-item index="/research-project">
         <i class="el-icon-data-analysis"></i>
-        <span slot="title">研究项目管理</span>
+        <span slot="title">科研项目管理</span>
       </el-menu-item>
       <el-menu-item index="/research-achievement">
         <i class="el-icon-medal"></i>
-        <span slot="title">研究成果管理</span>
+        <span slot="title">科研成果管理</span>
       </el-menu-item>
       <el-menu-item index="/office-space">
         <i class="el-icon-office-building"></i>

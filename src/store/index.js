@@ -34,7 +34,14 @@ export default new Vuex.Store({
     researchAchievements: [],
     researchAchievement: {},
     projectOptions: [],
-    ownResearcherOptions: []
+    ownResearcherOptions: [],
+
+    researchLaboratories: [],
+    researchLaboratory: {},
+    secretaryOptions: [],
+    officeSpaceOptions: [],
+    freeResearcherOptions: [],
+    labOwnResearcherOptions: []
   },
   getters: {
   },
@@ -108,6 +115,25 @@ export default new Vuex.Store({
     },
     setOwnResearcherOptions(state, ownResearcherOptions) {
       state.ownResearcherOptions = ownResearcherOptions
+    },
+
+    setResearchLaboratories(state, researchLaboratories) {
+      state.researchLaboratories = researchLaboratories
+    },
+    setResearchLaboratory(state, researchLaboratory) {
+      state.researchLaboratory = researchLaboratory
+    },
+    setSecretaryOptions(state, secretaryOptions) {
+      state.secretaryOptions = secretaryOptions
+    },
+    setOfficeSpaceOptions(state, officeSpaceOptions) {
+      state.officeSpaceOptions = officeSpaceOptions
+    },
+    setFreeResearcherOptions(state, freeResearcherOptions) {
+      state.freeResearcherOptions = freeResearcherOptions
+    },
+    setLabOwnResearcherOptions(state, labOwnResearcherOptions) {
+      state.labOwnResearcherOptions = labOwnResearcherOptions
     }
   },
   actions: {
@@ -264,6 +290,56 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         researchProjectsService.getOwnResearcherOptions(obj.str, obj.projectId).then(({data}) => {
           context.commit('setOwnResearcherOptions', data)
+          resolve()
+        })
+      })
+    },
+
+    getAllResearchLaboratories(context, obj) {
+      return new Promise((resolve) => {
+        researchLaboratoriesService.getAllResearchLaboratories(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setResearchLaboratories', data.data.researchLaboratoryList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getResearchLaboratory(context, id) {
+      return new Promise((resolve) => {
+        researchLaboratoriesService.getResearchLaboratory(id).then(({data}) => {
+          context.commit('setResearchLaboratory', data.data)
+          resolve()
+        })
+      })
+    },
+    getSecretaryOptions(context, str) {
+      return new Promise((resolve) => {
+        secretariesService.getSecretaryOptions(str).then(({data}) => {
+          context.commit('setSecretaryOptions', data)
+          resolve()
+        })
+      })
+    },
+    getOfficeSpaceOptions(context, str) {
+      return new Promise((resolve) => {
+        officeSpacesService.getOfficeSpaceOptions(str).then(({data}) => {
+          context.commit('setOfficeSpaceOptions', data)
+          resolve()
+        })
+      })
+    },
+    getFreeResearcherOptions(context, str) {
+      return new Promise((resolve) => {
+        scientificResearchersService.getFreeResearcherOptions(str).then(({data}) => {
+          context.commit('setFreeResearcherOptions', data)
+          resolve()
+        })
+      })
+    },
+    getLabOwnResearcherOptions(context, obj) {
+      return new Promise((resolve) => {
+        scientificResearchersService.getLabOwnResearcherOptions(obj.str, obj.labName).then(({data}) => {
+          context.commit('setLabOwnResearcherOptions', data)
           resolve()
         })
       })

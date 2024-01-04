@@ -52,6 +52,8 @@
     </div>
   </div>
   <div v-else class="form-wrapper">
+
+    <!-- 基本信息模块 -->
     <el-form :model="newResearchAchievement" label-position="left" label-width="100px" :rules="rules" ref="basicForm">
       <el-form-item label="成果名称" prop="achievementName">
         <el-input v-model="newResearchAchievement.achievementName"  :disabled="toggle==='examine'"></el-input>
@@ -83,6 +85,8 @@
         </el-radio-group>
       </el-form-item>
     </el-form>
+
+    <!-- 归属项目模块 -->
     <el-form :model="newResearchAchievement" label-position="left" label-width="100px" :rules="rules" ref="projectForm">
       <p>归属项目信息</p>
       <el-form-item label="归属项目ID" prop="projectId">
@@ -120,6 +124,8 @@
         @click="addContributor"
       >新增</el-button>
     </div>
+
+    <!-- 贡献人模块 -->
     <el-form
       v-for="(contributor, index) in newResearchAchievement.contributors"
       :key=index
@@ -140,7 +146,6 @@
         >删除</el-button>
       </div>
       <el-form-item label="科研人员ID" prop="researcherId">
-        <!-- <el-input v-model="contributor.researcherId"  :disabled="toggle==='examine'"></el-input> -->
         <el-select
           v-model="contributor.researcherId"
           filterable
@@ -210,13 +215,24 @@
           ],
           rank: [
             { required: true, message: '请输入贡献排名', trigger: 'blur' }
-          ]
+          ],
+          achievementType: [
+            { required: true, message: '请选择成果类型', trigger: 'blur' }
+          ],
         },
         error: false
       };
     },
     computed: {
-      ...mapState(['researchAchievements', 'researchAchievement', 'recordCounts', 'tmpPage', 'tmpPageSize', 'projectOptions', 'ownResearcherOptions'])
+      ...mapState([
+        'researchAchievements',
+        'researchAchievement',
+        'recordCounts',
+        'tmpPage',
+        'tmpPageSize',
+        'projectOptions',
+        'ownResearcherOptions'
+      ])
     },
     methods: {
       achievementTypeFilter(value) {
@@ -362,13 +378,32 @@
         if (this.error) {
           return
         }
-        // 贡献人校验（至少存在一个贡献人）
+        // 贡献人校验：至少存在一个贡献人
         if (this.newResearchAchievement.contributors.length === 0) {
           this.$message({
             type: 'error',
             message: '请至少添加一个贡献人'
           })
           return
+        }
+        // 贡献人校验：多个贡献人的ID、排名不能相同
+        for (let i = 0; i < this.newResearchAchievement.contributors.length; i++) {
+          for (let j = i + 1; j < this.newResearchAchievement.contributors.length; j++) {
+            if (this.newResearchAchievement.contributors[i].researcherId === this.newResearchAchievement.contributors[j].researcherId) {
+              this.$message({
+                type: 'error',
+                message: '贡献人ID不能相同'
+              })
+              return
+            }
+            if (this.newResearchAchievement.contributors[i].rank === this.newResearchAchievement.contributors[j].rank) {
+              this.$message({
+                type: 'error',
+                message: '贡献人排名不能相同'
+              })
+              return
+            }
+          }
         }
 
         // 修改提交对象，使其符合dto的结构
