@@ -67,6 +67,9 @@ export const researchLaboratoriesService = {
   },
   deleteResearchLaboratory(name) {
     return ApiService.delete(`/research-laboratories/${name}`)
+  },
+  getLabNameOptions(str) {
+    return ApiService.get(`/research-laboratories/lab-name-options/${str}`)
   }
 }
 

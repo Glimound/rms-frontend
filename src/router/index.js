@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import NullContentView from '@/views/contentView/NullContentView'
+import HomeView from '@/views/contentView/HomeView'
 import ClientView from '@/views/contentView/ClientView'
 import CollaboratorView from '@/views/contentView/CollaboratorView'
 import OfficeSpaceView from '@/views/contentView/OfficeSpaceView'
@@ -16,53 +16,83 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'nullContent',
-    component: NullContentView
+    name: 'home',
+    component: HomeView,
+    meta: {
+      title: '主页'
+    }
   },
   {
     path: '/client',
     name: 'client',
-    component: ClientView
+    component: ClientView,
+    meta: {
+      title: '委托方管理'
+    }
   },
   {
     path: '/collaborator',
     name: 'collaborator',
-    component: CollaboratorView
+    component: CollaboratorView,
+    meta: {
+      title: '合作方管理'
+    }
   },
   {
     path: '/office-space',
     name: 'officeSpace',
-    component: OfficeSpaceView
+    component: OfficeSpaceView,
+    meta: {
+      title: '办公场地管理'
+    }
   },
   {
     path: '/quality-monitor',
     name: 'qualityMonitor',
-    component: QualityMonitorView
+    component: QualityMonitorView,
+    meta: {
+      title: '质量监测方管理'
+    }
   },
   {
     path: '/research-project',
     name: 'researchProject',
-    component: ResearchProjectView
+    component: ResearchProjectView,
+    meta: {
+      title: '科研项目管理'
+    }
   },
   {
     path: '/research-achievement',
     name: 'researchAchievement',
-    component: ResearchAchievementView
+    component: ResearchAchievementView,
+    meta: {
+      title: '科研成果管理'
+    }
   },
   {
     path: '/research-laboratory',
     name: 'researchLaboratory',
-    component: ResearchLaboratoryView
+    component: ResearchLaboratoryView,
+    meta: {
+      title: '研究室管理'
+    }
   },
   {
     path: '/scientific-researcher',
     name: 'scientificResearcher',
-    component: ScientificResearcherView
+    component: ScientificResearcherView,
+    meta: {
+      title: '科研人员管理'
+    }
   },
   {
     path: '/secretary',
     name: 'secretary',
-    component: SecretaryView
+    component: SecretaryView,
+    meta: {
+      title: '秘书管理'
+    }
   }
 ]
 

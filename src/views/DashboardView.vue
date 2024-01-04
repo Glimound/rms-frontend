@@ -38,7 +38,7 @@
       z-index: 1;
 
       .content-area {
-        flex-grow: 1;
+        width: calc(100% - 200px);
         display: flex;
         flex-direction: column;
       }
