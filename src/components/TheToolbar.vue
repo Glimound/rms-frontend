@@ -18,11 +18,12 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-    z-index: 2;
-    position: relative;
+    z-index: 20;
+    position: fixed;
+    top: 0px;
+    background-color: white;
 
     p {
-      font-family: 'Arial', sans-serif;
       font-size: 22px;
       letter-spacing: 2px;
       color: #666666;

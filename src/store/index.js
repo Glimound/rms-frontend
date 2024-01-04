@@ -1,4 +1,4 @@
-import { officeSpacesService, researchLaboratoriesService } from '@/services/apiServices'
+import { clientsService, officeSpacesService, researchLaboratoriesService } from '@/services/apiServices'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -9,9 +9,13 @@ export default new Vuex.Store({
     recordCounts: 0,
     tmpPage: 1,
     tmpPageSize: 10,
+
     officeSpaces: [],
     officeSpace: {},
-    labNameOptions: []
+    labNameOptions: [],
+
+    clients: [],
+    client: {}
   },
   getters: {
   },
@@ -25,6 +29,7 @@ export default new Vuex.Store({
     setTmpPageSize(state, tmpPageSize) {
       state.tmpPageSize = tmpPageSize
     },
+
     setOfficeSpaces(state, officeSpaces) {
       state.officeSpaces = officeSpaces
     },
@@ -33,6 +38,13 @@ export default new Vuex.Store({
     },
     setLabNameOptions(state, labNameOptions) {
       state.labNameOptions = labNameOptions
+    },
+
+    setClients(state, clients) {
+      state.clients = clients
+    },
+    setClient(state, client) {
+      state.client = client
     }
   },
   actions: {
@@ -57,6 +69,24 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         researchLaboratoriesService.getLabNameOptions(str).then(({data}) => {
           context.commit('setLabNameOptions', data)
+          resolve()
+        })
+      })
+    },
+
+    getAllClients(context, obj) {
+      return new Promise((resolve) => {
+        clientsService.getAllClients(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setClients', data.data.clientList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getClient(context, name) {
+      return new Promise((resolve) => {
+        clientsService.getClient(name).then(({data}) => {
+          context.commit('setClient', data.data)
           resolve()
         })
       })

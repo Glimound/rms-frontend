@@ -26,8 +26,11 @@
 
 <style lang="scss">
   .breadcrumb {
-    width: 100%;
+    position: fixed;
+    width: calc(100% - 200px);
     height: 50px;
+    background-color: white;
+    z-index: 10;
     display: flex;
     align-items: center;
 

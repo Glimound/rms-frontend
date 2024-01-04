@@ -32,15 +32,15 @@
     box-sizing: border-box;
 
     .main-container {
-      display: flex;
+      padding-top: 50px;
       height: calc(100% - 50px);
-      position: relative;
-      z-index: 1;
+      width: 100%;
 
       .content-area {
         width: calc(100% - 200px);
-        display: flex;
-        flex-direction: column;
+        padding-left: 200px;
+        overflow-y: auto;
+        height: auto;
       }
     }
   }

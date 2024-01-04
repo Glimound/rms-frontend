@@ -60,7 +60,9 @@
   .navigation {
     width: 200px;
     height: 100%;
-    flex-shrink: 0;
+    position: fixed;
+    left: 0px;
+    top: 50px;
 
     .el-menu {
       height: 100%;
