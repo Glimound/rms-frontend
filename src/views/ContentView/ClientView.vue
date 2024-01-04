@@ -218,6 +218,7 @@
       submit() {
         // 字段校验逻辑
         // 表单校验
+        this.error = false
         this.$refs['basicForm'].validate((valid) => {
           if (!valid) {
             this.error = true

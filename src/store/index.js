@@ -1,4 +1,4 @@
-import { clientsService, officeSpacesService, researchLaboratoriesService } from '@/services/apiServices'
+import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService } from '@/services/apiServices'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -15,7 +15,10 @@ export default new Vuex.Store({
     labNameOptions: [],
 
     clients: [],
-    client: {}
+    client: {},
+
+    collaborators: [],
+    collaborator: {}
   },
   getters: {
   },
@@ -45,6 +48,13 @@ export default new Vuex.Store({
     },
     setClient(state, client) {
       state.client = client
+    },
+
+    setCollaborators(state, collaborators) {
+      state.collaborators = collaborators
+    },
+    setCollaborator(state, collaborator) {
+      state.collaborator = collaborator
     }
   },
   actions: {
@@ -87,6 +97,24 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         clientsService.getClient(name).then(({data}) => {
           context.commit('setClient', data.data)
+          resolve()
+        })
+      })
+    },
+
+    getAllCollaborators(context, obj) {
+      return new Promise((resolve) => {
+        collaboratorsService.getAllCollaborators(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setCollaborators', data.data.collaboratorList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getCollaborator(context, name) {
+      return new Promise((resolve) => {
+        collaboratorsService.getCollaborator(name).then(({data}) => {
+          context.commit('setCollaborator', data.data)
           resolve()
         })
       })
