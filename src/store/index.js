@@ -1,4 +1,4 @@
-import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService } from '@/services/apiServices'
+import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService, qualityMonitorsService } from '@/services/apiServices'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -18,7 +18,10 @@ export default new Vuex.Store({
     client: {},
 
     collaborators: [],
-    collaborator: {}
+    collaborator: {},
+
+    qualityMonitors: [],
+    qualityMonitor: {},
   },
   getters: {
   },
@@ -55,7 +58,14 @@ export default new Vuex.Store({
     },
     setCollaborator(state, collaborator) {
       state.collaborator = collaborator
-    }
+    },
+
+    setQualityMonitors(state, qualityMonitors) {
+      state.qualityMonitors = qualityMonitors
+    },
+    setQualityMonitor(state, qualityMonitor) {
+      state.qualityMonitor = qualityMonitor
+    },
   },
   actions: {
     getAllOfficeSpaces(context, obj) {
@@ -118,7 +128,25 @@ export default new Vuex.Store({
           resolve()
         })
       })
-    }
+    },
+
+    getAllQualityMonitors(context, obj) {
+      return new Promise((resolve) => {
+        qualityMonitorsService.getAllQualityMonitors(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setQualityMonitors', data.data.qualityMonitorList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getQualityMonitor(context, name) {
+      return new Promise((resolve) => {
+        qualityMonitorsService.getQualityMonitor(name).then(({data}) => {
+          context.commit('setQualityMonitor', data.data)
+          resolve()
+        })
+      })
+    },
   },
   modules: {
   }

@@ -170,10 +170,10 @@
           clientName: null,
           address: null,
           superintendent: {
-              name: null,
-              officePhone: null,
-              mobilePhone: null,
-              email: null
+            name: null,
+            officePhone: null,
+            mobilePhone: null,
+            email: null
           },
           clientContactList: [
             {
