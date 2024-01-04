@@ -161,6 +161,8 @@
         })
       },
       submit(formName) {
+        // 字段校验逻辑
+        this.error = false
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             this.error = true
@@ -170,6 +172,7 @@
         if (this.error) {
           return
         }
+        // 提交逻辑
         if (this.toggle === 'add') {
           officeSpacesService.createOfficeSpace({
             officeSpace: this.newOfficeSpace

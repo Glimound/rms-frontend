@@ -1,4 +1,4 @@
-import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService, qualityMonitorsService } from '@/services/apiServices'
+import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService, qualityMonitorsService, secretariesService } from '@/services/apiServices'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -22,6 +22,10 @@ export default new Vuex.Store({
 
     qualityMonitors: [],
     qualityMonitor: {},
+
+    secretary: {},
+    secretaries: [],
+    labNameWithNoSecretaryOptions: [],
   },
   getters: {
   },
@@ -66,6 +70,16 @@ export default new Vuex.Store({
     setQualityMonitor(state, qualityMonitor) {
       state.qualityMonitor = qualityMonitor
     },
+
+    setSecretary(state, secretary) {
+      state.secretary = secretary
+    },
+    setSecretaries(state, secretaries) {
+      state.secretaries = secretaries
+    },
+    setLabNameWithNoSecretaryOptions(state, labNameWithNoSecretaryOptions) {
+      state.labNameWithNoSecretaryOptions = labNameWithNoSecretaryOptions
+    }
   },
   actions: {
     getAllOfficeSpaces(context, obj) {
@@ -147,6 +161,32 @@ export default new Vuex.Store({
         })
       })
     },
+
+    getAllSecretaries(context, obj) {
+      return new Promise((resolve) => {
+        secretariesService.getAllSecretaries(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setSecretaries', data.data.secretaryList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getSecretary(context, id) {
+      return new Promise((resolve) => {
+        secretariesService.getSecretary(id).then(({data}) => {
+          context.commit('setSecretary', data.data)
+          resolve()
+        })
+      })
+    },
+    getLabNameWithNoSecretaryOptions(context, str) {
+      return new Promise((resolve) => {
+        researchLaboratoriesService.getLabNameWithNoSecretaryOptions(str).then(({data}) => {
+          context.commit('setLabNameWithNoSecretaryOptions', data)
+          resolve()
+        })
+      })
+    }
   },
   modules: {
   }

@@ -70,6 +70,9 @@ export const researchLaboratoriesService = {
   },
   getLabNameOptions(str) {
     return ApiService.get(`/research-laboratories/lab-name-options/${str}`)
+  },
+  getLabNameWithNoSecretaryOptions(str) {
+    return ApiService.get(`/research-laboratories/lab-name-with-no-secretary-options/${str}`)
   }
 }
 
