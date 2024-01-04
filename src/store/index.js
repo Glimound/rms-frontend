@@ -1,4 +1,5 @@
-import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService, qualityMonitorsService, secretariesService } from '@/services/apiServices'
+import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService } from '@/services/apiServices'
+import { qualityMonitorsService, secretariesService, scientificResearchersService } from '@/services/apiServices'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     secretary: {},
     secretaries: [],
     labNameWithNoSecretaryOptions: [],
+
+    scientificResearchers: [],
+    scientificResearcher: {},
   },
   getters: {
   },
@@ -79,7 +83,14 @@ export default new Vuex.Store({
     },
     setLabNameWithNoSecretaryOptions(state, labNameWithNoSecretaryOptions) {
       state.labNameWithNoSecretaryOptions = labNameWithNoSecretaryOptions
-    }
+    },
+
+    setScientificResearchers(state, scientificResearchers) {
+      state.scientificResearchers = scientificResearchers
+    },
+    setScientificResearcher(state, scientificResearcher) {
+      state.scientificResearcher = scientificResearcher
+    },
   },
   actions: {
     getAllOfficeSpaces(context, obj) {
@@ -186,7 +197,25 @@ export default new Vuex.Store({
           resolve()
         })
       })
-    }
+    },
+
+    getAllScientificResearchers(context, obj) {
+      return new Promise((resolve) => {
+        scientificResearchersService.getAllScientificResearchers(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setScientificResearchers', data.data.scientificResearcherList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getScientificResearcher(context, id) {
+      return new Promise((resolve) => {
+        scientificResearchersService.getScientificResearcher(id).then(({data}) => {
+          context.commit('setScientificResearcher', data.data)
+          resolve()
+        })
+      })
+    },
   },
   modules: {
   }
