@@ -129,6 +129,9 @@ export const scientificResearchersService = {
     return ApiService.query(`/scientific-researchers/lab-own-researcher-options/${str}`, {
       labName: labName
     })
+  },
+  getResearcherOptions(str) {
+    return ApiService.get(`/scientific-researchers/researcher-options/${str}`)
   }
 }
 
@@ -150,6 +153,9 @@ export const clientsService = {
   },
   deleteClient(name) {
     return ApiService.delete(`/clients/${name}`)
+  },
+  getClientOptions(str) {
+    return ApiService.get(`/clients/client-options/${str}`)
   }
 }
 
@@ -171,6 +177,9 @@ export const collaboratorsService = {
   },
   deleteCollaborator(name) {
     return ApiService.delete(`/collaborators/${name}`)
+  },
+  getCollaboratorOptions(str) {
+    return ApiService.get(`/collaborators/collaborator-options/${str}`)
   }
 }
 
@@ -192,6 +201,9 @@ export const qualityMonitorsService = {
   },
   deleteQualityMonitor(name) {
     return ApiService.delete(`/quality-monitors/${name}`)
+  },
+  getQualityMonitorOptions(str) {
+    return ApiService.get(`/quality-monitors/quality-monitor-options/${str}`)
   }
 }
 

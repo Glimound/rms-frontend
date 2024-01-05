@@ -1,5 +1,5 @@
-import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService, researchAchievementsService, researchProjectsService } from '@/services/apiServices'
-import { qualityMonitorsService, secretariesService, scientificResearchersService } from '@/services/apiServices'
+import { clientsService, officeSpacesService, researchLaboratoriesService, collaboratorsService, researchAchievementsService } from '@/services/apiServices'
+import { qualityMonitorsService, secretariesService, scientificResearchersService, researchProjectsService } from '@/services/apiServices'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -41,7 +41,15 @@ export default new Vuex.Store({
     secretaryOptions: [],
     officeSpaceOptions: [],
     freeResearcherOptions: [],
-    labOwnResearcherOptions: []
+    labOwnResearcherOptions: [],
+
+    researchProjects: [],
+    researchProject: {},
+    clientOptions: [],
+    qualityMonitorOptions: [],
+    collaboratorOptions: [],
+    researcherOptions: [],
+    subtopicResearcherOptions: []
   },
   getters: {
   },
@@ -134,6 +142,28 @@ export default new Vuex.Store({
     },
     setLabOwnResearcherOptions(state, labOwnResearcherOptions) {
       state.labOwnResearcherOptions = labOwnResearcherOptions
+    },
+
+    setResearchProjects(state, researchProjects) {
+      state.researchProjects = researchProjects
+    },
+    setResearchProject(state, researchProject) {
+      state.researchProject = researchProject
+    },
+    setClientOptions(state, clientOptions) {
+      state.clientOptions = clientOptions
+    },
+    setQualityMonitorOptions(state, qualityMonitorOptions) {
+      state.qualityMonitorOptions = qualityMonitorOptions
+    },
+    setCollaboratorOptions(state, collaboratorOptions) {
+      state.collaboratorOptions = collaboratorOptions
+    },
+    setResearcherOptions(state, researcherOptions) {
+      state.researcherOptions = researcherOptions
+    },
+    setSubtopicResearcherOptions(state, subtopicResearcherOptions) {
+      state.subtopicResearcherOptions = subtopicResearcherOptions
     }
   },
   actions: {
@@ -340,6 +370,56 @@ export default new Vuex.Store({
       return new Promise((resolve) => {
         scientificResearchersService.getLabOwnResearcherOptions(obj.str, obj.labName).then(({data}) => {
           context.commit('setLabOwnResearcherOptions', data)
+          resolve()
+        })
+      })
+    },
+
+    getAllResearchProjects(context, obj) {
+      return new Promise((resolve) => {
+        researchProjectsService.getAllResearchProjects(obj.page, obj.pageSize).then(({data}) => {
+          context.commit('setResearchProjects', data.data.researchProjectList)
+          context.commit('setRecordCounts', data.data.count)
+          resolve()
+        })
+      })
+    },
+    getResearchProject(context, id) {
+      return new Promise((resolve) => {
+        researchProjectsService.getResearchProject(id).then(({data}) => {
+          context.commit('setResearchProject', data.data)
+          resolve()
+        })
+      })
+    },
+    getClientOptions(context, str) {
+      return new Promise((resolve) => {
+        clientsService.getClientOptions(str).then(({data}) => {
+          context.commit('setClientOptions', data)
+          resolve()
+        })
+      })
+    },
+    getQualityMonitorOptions(context, str) {
+      return new Promise((resolve) => {
+        qualityMonitorsService.getQualityMonitorOptions(str).then(({data}) => {
+          context.commit('setQualityMonitorOptions', data)
+          resolve()
+        })
+      })
+    },
+    getCollaboratorOptions(context, str) {
+      return new Promise((resolve) => {
+        collaboratorsService.getCollaboratorOptions(str).then(({data}) => {
+          context.commit('setCollaboratorOptions', data)
+          resolve()
+        })
+      })
+    },
+    getResearcherOptions(context, str) {
+      return new Promise((resolve) => {
+        scientificResearchersService.getResearcherOptions(str).then(({data}) => {
+          context.commit('setResearcherOptions', data)
           resolve()
         })
       })

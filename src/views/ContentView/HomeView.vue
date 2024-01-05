@@ -12,11 +12,11 @@
 
 <style lang="scss">
   .empty-wrapper {
-    width: 100%;
-    height: 100%;
+    height: calc(100vh - 50px);
     display: flex;
     justify-content: center;
     align-items: center;
+
     background-color: #f7f7f7;
   }
 </style>
