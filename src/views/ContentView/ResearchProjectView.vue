@@ -281,6 +281,9 @@
       <el-form-item label="研究方向" prop="researcherResearchDirection">
         <el-input v-model="scientificResearcher.researchDirection" :disabled="true"></el-input>
       </el-form-item>
+      <el-form-item label="参加时间" prop="joinDate">
+        <el-input v-model="scientificResearcher.joinDate" :disabled="toggle==='examine'"></el-input>
+      </el-form-item>
       <el-form-item label="工作时长" prop="workHour">
         <el-input v-model="scientificResearcher.workHour" :disabled="toggle==='examine'"></el-input>
       </el-form-item>
@@ -388,7 +391,6 @@
   import ThePagination from '@/components/ThePagination.vue'
   import deepCopy from '@/utils/copy'
   import { researchProjectsService } from '@/services/apiServices'
-  import Vue from 'vue'
 
   export default {
     components: { ThePagination },
@@ -582,8 +584,8 @@
       },
       setCurrentResearcher(value, index) {
         for (let i = 0; i < this.researcherOptions.length; i++) {
-          if (this.freeResearcherOptions[i].researcherId === value) {
-            this.newResearchProject.scientificResearcherList[index] = this.researcherOptions[i]
+          if (this.researcherOptions[i].researcherId === value) {
+            this.newResearchProject.researcherList[index] = this.researcherOptions[i]
             break
           }
         }
@@ -745,7 +747,7 @@
         }
 
         // 修改提交对象，使其符合dto的结构
-        Vue.delete(this.newResearchProject.superintendent, 'superintendentId')
+        delete this.newResearchProject.superintendent.superintendentId
         this.newResearchProject.clientName = this.newResearchProject.client.clientName
 
         delete this.newResearchProject.client
@@ -767,6 +769,10 @@
 
         for (let i = 0; i < this.newResearchProject.subtopicList.length; i++) {
           delete this.newResearchProject.subtopicList[i].superintendent.superintendentId
+        }
+
+        if (this.newResearchProject.subtopicList.length === 0) {
+          this.newResearchProject.subtopicList = null
         }
 
         // 提交逻辑，根据toggle的值判断是新增还是编辑
